@@ -422,6 +422,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b6457bb8ca0ce744a0c3d12c76662e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  leftTurnPoint: -6
+  rightTurnPoint: -4
   speed: 1
 --- !u!114 &175050294
 MonoBehaviour:
