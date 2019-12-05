@@ -16,7 +16,7 @@ TagManager:
   - 
   - Collideable
   - Player
-  - 
+  - Enemy
   - 
   - 
   - 
@@ -44,6 +44,9 @@ TagManager:
     locked: 0
   - name: Tiles Background
     uniqueID: 283520995
+    locked: 0
+  - name: Enemy
+    uniqueID: 2402924595
     locked: 0
   - name: Player
     uniqueID: 273787127

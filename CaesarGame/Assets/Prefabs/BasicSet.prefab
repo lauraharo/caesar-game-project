@@ -105,11 +105,6 @@ PrefabInstance:
       propertyPath: healthSlider
       value: 
       objectReference: {fileID: 6538967064397314646}
-    - target: {fileID: 5265110511323020140, guid: b03b8b8c3bf69574186720a4f2b8156f,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b03b8b8c3bf69574186720a4f2b8156f, type: 3}
 --- !u!1 &6538967064319283632 stripped
@@ -323,13 +318,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7454247757550502668, guid: 5c79db928fc02bc41b4c319994ad54fc,
         type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
+      propertyPath: m_LocalScale.x
+      value: 1.0378125
       objectReference: {fileID: 0}
     - target: {fileID: 7454247757550502668, guid: 5c79db928fc02bc41b4c319994ad54fc,
         type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
+      propertyPath: m_LocalScale.y
+      value: 1.1390625
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c79db928fc02bc41b4c319994ad54fc, type: 3}
