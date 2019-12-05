@@ -6,7 +6,8 @@ public class PhysicsObject : MonoBehaviour
 {
 
     public float minGroundNormalY = .65f;
-    public float gravityModifier = 1f;
+    public float gravity = 0.6f;
+    public float maxFallSpeed = 15f;
 
     protected Vector2 targetVelocity;
     protected bool grounded;
@@ -25,6 +26,7 @@ public class PhysicsObject : MonoBehaviour
     void OnEnable()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        maxFallSpeed = -maxFallSpeed;
     }
 
     void Start()
@@ -47,7 +49,8 @@ public class PhysicsObject : MonoBehaviour
 
     void FixedUpdate()
     {
-        velocity += gravityModifier * Physics2D.gravity * Time.deltaTime;
+
+        if (velocity.y > maxFallSpeed) velocity.y -= gravity;
         velocity.x = targetVelocity.x;
 
         grounded = false;
