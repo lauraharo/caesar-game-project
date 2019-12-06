@@ -12,15 +12,14 @@ public class PlayerPlatformerController : PhysicsObject
 
     [SerializeField] private Collider2D slideDisableCollider;
     [SerializeField] private LayerMask whatIsGround;
-    [SerializeField] private Transform ceilingCheck, attackStart, attackEnd;
-    [SerializeField] private float ceilingCheckRadius = 0.4f;
+    [SerializeField] private Transform ceilingCheck;
+    [SerializeField] private float ceilingCheckRadius = 0.3f;
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 
-    private bool canStandUp;
-    private bool isFacingRight;
     private bool isSliding;
+    private bool canStandUp;
     private float slideTime;
     private Vector2 move;
 
@@ -31,84 +30,85 @@ public class PlayerPlatformerController : PhysicsObject
         animator = GetComponent<Animator>();
         isSliding = false;
         slideDisableCollider.enabled = true;
-        isFacingRight = true;
     }
 
     protected override void ComputeVelocity()
     {
 
-
-        if (isSliding) HandleSlidingControls();
-        else HandleControls();
         
+        if (isSliding) {
+            HandleSliding();
+        } else {
+            HandleNormalMovement();
+        }
 
+ 
         targetVelocity = isSliding ? move * slideSpeed : move * maxSpeed;
-        canStandUp = !Physics2D.OverlapCircle(ceilingCheck.position, ceilingCheckRadius, whatIsGround);
+        canStandUp = !Physics2D.OverlapCircle(ceilingCheck.position, 0.4f, whatIsGround);
 
     }
 
 
     // All logic regarrding movement during a slide is here
     // TODO: Refactor the if structure
-    private void HandleSlidingControls() {
+    private void HandleSliding() {
         if (canStandUp && slideTime <= 0) ToggleSlide();
 
         slideTime = slideTime <= 0 ? 0 : slideTime - 1;
 
         if (Input.GetButtonDown("Jump") && grounded && canStandUp) {
             ToggleSlide();
-            HandleJumpAndSlide();
+            HandleJump();
         }
 
-        // read input: right or left keys positive values right, negative left
-        float horizontalInput = Input.GetAxis("Horizontal");
+        float slideDirection = Input.GetAxis("Horizontal");
+        if (!canStandUp) {
+            if (slideDirection > 0) spriteRenderer.flipX = false;
+            else if (slideDirection < 0) spriteRenderer.flipX = true;
+        }
+        else if ((move.x > 0 && slideDirection < 0) || (move.x < 0 && slideDirection > 0)) {
+            ToggleSlide();
+        }
 
-        if (!isFacingRight) {
+        if (spriteRenderer.flipX) {
             move.x = -0.5f;
-            if (horizontalInput > 0) ToggleSlide();
         }
         else {
             move.x = 0.5f;
-            if (horizontalInput < 0) ToggleSlide();
         }
  
 
     }
 
     // All "normal" movement logic when character is not sliding
-    private void HandleControls() {
+    private void HandleNormalMovement() {
         move = Vector2.zero;
         move.x = Input.GetAxis("Horizontal");
 
-        HandleJumpAndSlide();
-        HandleAttack();
+        HandleJump();
 
         animator.SetBool("Grounded", grounded);
         animator.SetFloat("VelocityX", Mathf.Abs(velocity.x) / maxSpeed);
         animator.SetFloat("VelocityY", velocity.y);
 
         // only flip if we are moving
-        if (move.x > 0.01f && !isFacingRight) {
-            Flip();
-        }
-        else if (move.x < -0.01f && isFacingRight) {
-            Flip();
+        if (Mathf.Abs(move.x) > 0) {
+            spriteRenderer.flipX = (move.x < -0.01f);
         }
 
         targetVelocity = move * maxSpeed;
 
     }
 
-    private void Flip()
+    private void ToggleSlide()
     {
-        isFacingRight = !isFacingRight;
-
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
+        slideTime = slideLength;
+        isSliding = !isSliding;
+        animator.SetBool("IsSliding", isSliding);
+        slideDisableCollider.enabled = !slideDisableCollider.enabled;
     }
 
-    private void HandleJumpAndSlide()
+    private void HandleJump()
     {
         
         if (Input.GetButtonDown("Jump") && grounded) {
@@ -120,34 +120,9 @@ public class PlayerPlatformerController : PhysicsObject
             }
         }
         else if (Input.GetButtonUp("Jump")) {
-            if (velocity.y > jumpTakeOffSpeed / 3) {
-                velocity.y = 0;
+            if (velocity.y > 0) {
+                velocity.y = velocity.y * 0.5f;
             }
-        }
-    }
-
-    private void ToggleSlide()
-    {
-        slideTime = slideLength;
-        isSliding = !isSliding;
-        animator.SetBool("IsSliding", isSliding);
-        slideDisableCollider.enabled = !slideDisableCollider.enabled;
-    }
-
-    
-    private void HandleAttack() {
-        if (Input.GetButtonDown("Fire1")) {
-            animator.SetTrigger("PlayerAttack");
-            
-            RaycastHit2D hit = Physics2D.Linecast(attackStart.position, attackEnd.position, 1 << 8);
-
-            // here we can add damage cause to enemy logic
-            if (hit.collider != null) {
-                Debug.Log("you punched wall");
-            }
-
-            Debug.DrawLine(attackStart.position, attackEnd.position, Color.green, 1f);
-
         }
     }
 }
