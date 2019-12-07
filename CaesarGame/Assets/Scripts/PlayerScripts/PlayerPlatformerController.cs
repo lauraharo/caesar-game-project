@@ -36,7 +36,12 @@ public class PlayerPlatformerController : PhysicsObject
 
     protected override void ComputeVelocity()
     {
-
+        if (move.x > 0.01f && !isFacingRight) {
+            Flip();
+        }
+        else if (move.x < -0.01f && isFacingRight) {
+            Flip();
+        }
 
         if (isSliding) HandleSlidingControls();
         else HandleControls();
@@ -65,11 +70,17 @@ public class PlayerPlatformerController : PhysicsObject
 
         if (!isFacingRight) {
             move.x = -0.5f;
-            if (horizontalInput > 0) ToggleSlide();
+            if (horizontalInput > 0) {
+                if (!canStandUp) move.x = 0.5f;
+                else ToggleSlide();
+            } 
         }
         else {
             move.x = 0.5f;
-            if (horizontalInput < 0) ToggleSlide();
+            if (horizontalInput < 0) {
+                if (!canStandUp) move.x = -0.5f;
+                else ToggleSlide();
+            }
         }
  
 
@@ -86,14 +97,6 @@ public class PlayerPlatformerController : PhysicsObject
         animator.SetBool("Grounded", grounded);
         animator.SetFloat("VelocityX", Mathf.Abs(velocity.x) / maxSpeed);
         animator.SetFloat("VelocityY", velocity.y);
-
-        // only flip if we are moving
-        if (move.x > 0.01f && !isFacingRight) {
-            Flip();
-        }
-        else if (move.x < -0.01f && isFacingRight) {
-            Flip();
-        }
 
         targetVelocity = move * maxSpeed;
 
