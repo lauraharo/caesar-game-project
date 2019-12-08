@@ -5,10 +5,9 @@ using UnityEngine;
 public class RenderSpiderTrail : MonoBehaviour
 {
     [SerializeField] SpiderMovement spider;
-    float spiderTrailLength;
+    [SerializeField] float spiderTrailWidth;
     void Start()
     {
-        spiderTrailLength = spider.transform.localScale.y;
         spider = FindObjectOfType<SpiderMovement>();
     }
 
@@ -22,7 +21,7 @@ public class RenderSpiderTrail : MonoBehaviour
 
     void changeSpiderTrailLength()
     {
-        transform.localScale = new Vector2(0.03f, -spider.transform.position.y);
+        transform.localScale = new Vector2(spiderTrailWidth, -spider.transform.position.y);
         if (spider.getIsMovingDown())
         {
             transform.Translate(Vector2.down * spider.getSpiderSpeed()/2 * Time.deltaTime);

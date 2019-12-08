@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpiderMovement : MonoBehaviour
 {
-    Rigidbody2D spiderRigidBody;
+   // Rigidbody2D spiderRigidBody;
     [SerializeField] float spiderSpeed = 1f;
     [SerializeField] float turnPointUp;
     [SerializeField] float turnPointDown;
@@ -13,8 +13,8 @@ public class SpiderMovement : MonoBehaviour
     bool isMovingDown = true;
     void Start()
     {
-        spiderRigidBody = GetComponent<Rigidbody2D>();
-        turnPointUp = spiderRigidBody.transform.position.y;
+        //spiderRigidBody = GetComponent<Rigidbody2D>();
+        turnPointUp = transform.position.y;
         turnPointDown = turnPointUp - spiderMovementLength;
         Debug.Log("turn point up: " + turnPointUp + " turn point down: " + turnPointDown);
     }

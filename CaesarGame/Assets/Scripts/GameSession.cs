@@ -5,11 +5,11 @@ using TMPro;
 
 public class GameSession : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI moneyScoreText;
-    [SerializeField] int moneyScore = 0;
+    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] int score = 0;
     void Start()
     {
-        moneyScoreText.text = moneyScore.ToString();
+        scoreText.text = score.ToString();
     }
 
     // Update is called once per frame
@@ -20,8 +20,8 @@ public class GameSession : MonoBehaviour
 
     public void addToScore(int pointToAdd)
     {
-        moneyScore += pointToAdd;
-        moneyScoreText.text = moneyScore.ToString();
+        score += pointToAdd;
+        scoreText.text = score.ToString();
     }
     
 }
