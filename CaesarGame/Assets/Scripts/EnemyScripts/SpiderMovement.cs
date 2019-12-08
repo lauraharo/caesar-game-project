@@ -55,4 +55,14 @@ public class SpiderMovement : MonoBehaviour
 
     }
 
+    public float getSpiderSpeed()
+    {
+        return spiderSpeed;
+    }
+
+    public bool getIsMovingDown()
+    {
+        return isMovingDown;
+    }
+
 }
