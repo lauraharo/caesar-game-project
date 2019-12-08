@@ -10,22 +10,23 @@ public class PlayerHealth : MonoBehaviour
 
     // TODO: some of these can be used for player's sprite flash and death sound etc.
     // public AudioClip deathClip;                                 // The audio clip to play when the player dies.
+
     // public float flashSpeed = 5f;                               // The speed the damageImage will fade at.
     // public Color flashColour = new Color(1f, 0f, 0f, 0.1f);     // The colour the damageImage is set to, to flash.
-    //Animator anim;                                              // Reference to the Animator component.
+    // bool damaged;                                               // True when the player gets damaged.
+
+    Animator anim;                                              // Reference to the Animator component.
     //AudioSource playerAudio;                                    // Reference to the AudioSource component.
-    //PlayerMovement playerMovement;                              // Reference to the player's movement. Use this to disallow movement when dead
-    //PlayerShooting playerShooting;                              // Reference to the PlayerShooting script. Rename to Melee and use to disallow if dead
-    //bool damaged;                                               // True when the player gets damaged.
+    PlayerPlatformerController playerMovement;                              // Reference to the player's movement. Use this to disallow movement when dead
 
     bool isDead;                                                // Whether the player is dead.
 
     void Awake()
     {
         // Setting up the references.
-        // anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
         // playerAudio = GetComponent<AudioSource>();
-        //playerMovement = GetComponent<PlayerMovement>();
+        playerMovement = GetComponent<PlayerPlatformerController>();
         //playerShooting = GetComponentInChildren<PlayerShooting>();
 
         // Set the initial health of the player.
@@ -83,14 +84,14 @@ public class PlayerHealth : MonoBehaviour
         //playerShooting.DisableEffects();
 
         // Tell the animator that the player is dead.
-        //anim.SetTrigger("Die");
+        anim.SetTrigger("Die");
 
         //// Set the audiosource to play the death clip and play it (this will stop the hurt sound from playing).
         //playerAudio.clip = deathClip;
         //playerAudio.Play();
 
         // Turn off the movement and shooting scripts.
-    //    playerMovement.enabled = false;
+        playerMovement.enabled = false;
     //    playerShooting.enabled = false;
     }
 }
