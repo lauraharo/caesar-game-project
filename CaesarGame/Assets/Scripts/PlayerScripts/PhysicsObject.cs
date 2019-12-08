@@ -91,6 +91,7 @@ public class PhysicsObject : MonoBehaviour
                 }
 
                 float projection = Vector2.Dot(velocity, currentNormal);
+                
                 if (projection < 0) {
                     velocity = velocity - projection * currentNormal;
                 }
