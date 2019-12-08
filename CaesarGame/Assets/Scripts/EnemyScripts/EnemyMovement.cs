@@ -31,6 +31,7 @@ public class EnemyMovement : MonoBehaviour
         {
             transform.Translate(-Vector2.right * speed * Time.deltaTime);
         }
+        
 
     }
 
