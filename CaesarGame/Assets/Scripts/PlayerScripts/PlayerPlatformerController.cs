@@ -43,6 +43,10 @@ public class PlayerPlatformerController : PhysicsObject
             Flip();
         }
 
+        animator.SetBool("Grounded", grounded);
+        animator.SetFloat("VelocityX", Mathf.Abs(move.x));
+        animator.SetFloat("VelocityY", velocity.y);
+
         if (isSliding) HandleSlidingControls();
         else HandleControls();
         
@@ -94,12 +98,7 @@ public class PlayerPlatformerController : PhysicsObject
         HandleJumpAndSlide();
         HandleAttack();
 
-        animator.SetBool("Grounded", grounded);
-        animator.SetFloat("VelocityX", Mathf.Abs(velocity.x) / maxSpeed);
-        animator.SetFloat("VelocityY", velocity.y);
-
         targetVelocity = move * maxSpeed;
-
     }
 
     private void Flip()
@@ -120,10 +119,11 @@ public class PlayerPlatformerController : PhysicsObject
             }
             else {
                 velocity.y = jumpTakeOffSpeed;
+                animator.SetTrigger("PlayerJump");
             }
         }
         else if (Input.GetButtonUp("Jump")) {
-            if (velocity.y > jumpTakeOffSpeed / 3) {
+            if (velocity.y > jumpTakeOffSpeed / 4) {
                 velocity.y = 0;
             }
         }
