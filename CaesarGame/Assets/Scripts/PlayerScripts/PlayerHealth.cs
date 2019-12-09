@@ -92,7 +92,7 @@ public class PlayerHealth : MonoBehaviour
             damaged = false;
             healthSlider.value = 0;
             playerMovement.isDead = true;
-            session.DeleteLives(1);
+            session.ProcessPlayerDeath();
         }
     }
 }
