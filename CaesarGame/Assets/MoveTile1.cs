@@ -5,12 +5,11 @@ using UnityEngine;
 public class MoveTile1 : MonoBehaviour
 {
 
-    [SerializeField] float leftTurnPoint = -6.0f;
-    [SerializeField] float rightTurnPoint = -4.0f;
-    private bool dirRight = true;
-    public float speed = 1.0f;
-    private int y1 = 0;
-    private int y2 = 10;
+    [SerializeField] float upTurnPoint;
+    [SerializeField] float downTurnPoint;
+    private bool dirUp = false;
+    [SerializeField] float speed = 1.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,10 +21,9 @@ public class MoveTile1 : MonoBehaviour
         moveTile();
         changeDirection();
     }
-
     private void moveTile()
     {
-        if (dirRight)
+        if (dirUp)
         {
             transform.Translate(Vector2.up * speed * Time.deltaTime);
         }
@@ -38,16 +36,15 @@ public class MoveTile1 : MonoBehaviour
 
     private void changeDirection()
     {
-        if (transform.position.x >= rightTurnPoint)
+        if (transform.position.y <= upTurnPoint)
         {
-            dirRight = true;
+            dirUp = true;
         }
 
-        if (transform.position.x <= leftTurnPoint)
+        if (transform.position.y >= downTurnPoint)
         {
-            dirRight = false;
+            dirUp = false;
         }
-
     }
 
 }
