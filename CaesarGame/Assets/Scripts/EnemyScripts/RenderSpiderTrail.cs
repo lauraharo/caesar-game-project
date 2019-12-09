@@ -21,14 +21,12 @@ public class RenderSpiderTrail : MonoBehaviour
 
     void changeSpiderTrailLength()
     {
-        transform.localScale = new Vector2(spiderTrailWidth, -spider.transform.position.y);
-        if (spider.getIsMovingDown())
-        {
-            transform.Translate(Vector2.down * spider.getSpiderSpeed()/2 * Time.deltaTime);
+        transform.localScale = new Vector2(spiderTrailWidth, spider.transform.position.y);
+        if (spider.getIsMovingDown()) {
+            transform.Translate(Vector2.down * spider.getSpiderSpeed() / 2 * Time.deltaTime);
         }
-        else
-        {
-            transform.Translate(-Vector2.down * spider.getSpiderSpeed()/2 * Time.deltaTime);
+        else {
+            transform.Translate(-Vector2.down * spider.getSpiderSpeed() / 2 * Time.deltaTime);
         }
 
     }

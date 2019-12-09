@@ -11,13 +11,16 @@ public class PlayerHealth : MonoBehaviour
     // TODO: some of these can be used for player's sprite flash and death sound etc.
     // public AudioClip deathClip;                                 // The audio clip to play when the player dies.
 
-    // public float flashSpeed = 5f;                               // The speed the damageImage will fade at.
-    // public Color flashColour = new Color(1f, 0f, 0f, 0.1f);     // The colour the damageImage is set to, to flash.
-    // bool damaged;                                               // True when the player gets damaged.
+    public float flashSpeed = 5f;                               // The speed the damageImage will fade at.
+    public Color flashColour = new Color(1f, 1f, 1f, 0f);    // The colour the damageImage is set to, to flash.
+    public Color flashColourSecond = new Color(1f, 1f, 1f, 1f);
+    bool damaged;                                               // True when the player gets damaged.
 
     Animator anim;                                              // Reference to the Animator component.
     //AudioSource playerAudio;                                    // Reference to the AudioSource component.
     PlayerPlatformerController playerMovement;                              // Reference to the player's movement. Use this to disallow movement when dead
+    GameSession session;
+    SpriteRenderer playerSprite;
 
     bool isDead;                                                // Whether the player is dead.
 
@@ -31,6 +34,8 @@ public class PlayerHealth : MonoBehaviour
 
         // Set the initial health of the player.
         currentHealth = startingHealth;
+        session = FindObjectOfType<GameSession>();
+        playerSprite = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<SpriteRenderer>();
     }
 
 
@@ -39,18 +44,24 @@ public class PlayerHealth : MonoBehaviour
         // If the player has just been damaged...
         //if (damaged) {
         //    // ... set the colour of the damageImage to the flash colour.
-        //    damageImage.color = flashColour;
+        //    playerSprite.color = flashColour;
         //}
         //// Otherwise...
         //else {
         //    // ... transition the colour back to clear.
-        //    damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
+        //    playerSprite.color = Color.Lerp(playerSprite.color, Color.clear, flashSpeed * Time.deltaTime);
         //}
 
         //// Reset the damaged flag.
         //damaged = false;
     }
 
+    public void AddHealth(int amount)
+    {
+        currentHealth += amount;
+        if (currentHealth > startingHealth) currentHealth = startingHealth;
+        healthSlider.value = currentHealth;
+    }
 
     public void TakeDamage(int amount)
     {
@@ -59,6 +70,7 @@ public class PlayerHealth : MonoBehaviour
 
         // Reduce the current health by the damage amount.
         currentHealth -= amount;
+        if (currentHealth < 0) currentHealth = 0;
 
         // Set the health bar's value to the current health.
         healthSlider.value = currentHealth;
@@ -67,31 +79,10 @@ public class PlayerHealth : MonoBehaviour
         //playerAudio.Play();
 
         // If the player has lost all it's health and the death flag hasn't been set yet...
-        if (currentHealth <= 0 && !isDead) {
+        if (currentHealth == 0 && !isDead) {
             healthSlider.value = 0;
-            Death();
+            playerMovement.isDead = true;
+            session.DeleteLives(1);
         }
-    }
-
-
-    void Death()
-    {
-        // Set the death flag so this function won't be called again.
-        Debug.Log("Death happened");
-        isDead = true;
-
-        // Turn off any remaining shooting effects.
-        //playerShooting.DisableEffects();
-
-        // Tell the animator that the player is dead.
-        anim.SetTrigger("Die");
-
-        //// Set the audiosource to play the death clip and play it (this will stop the hurt sound from playing).
-        //playerAudio.clip = deathClip;
-        //playerAudio.Play();
-
-        // Turn off the movement and shooting scripts.
-        playerMovement.enabled = false;
-    //    playerShooting.enabled = false;
     }
 }

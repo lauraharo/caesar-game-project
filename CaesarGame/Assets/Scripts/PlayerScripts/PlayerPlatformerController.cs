@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerPlatformerController : PhysicsObject
 {
@@ -14,6 +15,7 @@ public class PlayerPlatformerController : PhysicsObject
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private Transform ceilingCheck, attackStart, attackEnd;
     [SerializeField] private float ceilingCheckRadius = 0.4f;
+    [SerializeField] private int initialDeathTime = 400;
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
@@ -21,8 +23,12 @@ public class PlayerPlatformerController : PhysicsObject
     private bool canStandUp;
     private bool isFacingRight;
     private bool isSliding;
+    public bool isDead;
     private float slideTime;
+    private int deathTime;
     private Vector2 move;
+    Vector3 startPosition;
+    PlayerHealth playerHealth;
 
     // Use this for initialization
     void Awake()
@@ -32,6 +38,10 @@ public class PlayerPlatformerController : PhysicsObject
         isSliding = false;
         slideDisableCollider.enabled = true;
         isFacingRight = true;
+        isDead = false;
+        deathTime = initialDeathTime;
+        startPosition = transform.position;
+        playerHealth = gameObject.GetComponent<PlayerHealth>();
     }
 
     protected override void ComputeVelocity()
@@ -46,9 +56,12 @@ public class PlayerPlatformerController : PhysicsObject
         animator.SetBool("Grounded", grounded);
         animator.SetFloat("VelocityX", Mathf.Abs(move.x));
         animator.SetFloat("VelocityY", velocity.y);
+        animator.SetBool("IsDead", isDead);
 
-        if (isSliding) HandleSlidingControls();
-        else HandleControls();
+        if (!isDead) {
+            if (isSliding) HandleSlidingControls();
+            else HandleControls();
+        } else HandleDeath();
         
 
         targetVelocity = isSliding ? move * slideSpeed : move * maxSpeed;
@@ -149,8 +162,27 @@ public class PlayerPlatformerController : PhysicsObject
                 Debug.Log("you punched wall");
             }
 
-            Debug.DrawLine(attackStart.position, attackEnd.position, Color.green, 1f);
+            // Debug.DrawLine(attackStart.position, attackEnd.position, Color.green, 1f);
 
         }
+    }
+
+    public void HandleDeath() {
+        if (deathTime == initialDeathTime) {
+            animator.SetTrigger("Die");
+            move.x = 0;
+            playerHealth.enabled = false;
+        }
+        deathTime--;
+        if (deathTime == 0) Respawn();
+    }
+
+    private void Respawn() {
+        transform.position = startPosition;
+        if (!isFacingRight) Flip();
+        isDead = false;
+        deathTime = initialDeathTime;
+        playerHealth.enabled = true;
+        playerHealth.AddHealth(50);
     }
 }

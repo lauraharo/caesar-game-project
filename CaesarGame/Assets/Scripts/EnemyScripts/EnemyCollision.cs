@@ -47,7 +47,7 @@ public class EnemyCollision : MonoBehaviour
         timer += Time.deltaTime;
 
         // If the timer exceeds the time between attacks, the player is in range (and this enemy is alive), deal damage
-        if (timer >= timeBetweenAttacks && playerInRange /*&& enemyHealth.currentHealth > 0*/ ) {
+        if (timer >= timeBetweenAttacks && playerInRange && !player.GetComponent<PlayerPlatformerController>().isDead/*&& enemyHealth.currentHealth > 0*/ ) {
             DealDamageToPlayer();
         }
 

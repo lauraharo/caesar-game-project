@@ -30,6 +30,6 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadLevel()
     {
-        SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("VesanTaso");
     }
 }
