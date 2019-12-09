@@ -4,30 +4,49 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
+
+    [SerializeField] float leftTurnPoint = -6.0f;
+    [SerializeField] float rightTurnPoint = -4.0f;
+    private bool dirRight = true;
+    public float speed = 1.0f;
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    private bool dirRight = true;
-    public float speed = 1.0f;
-
     void Update()
     {
-        if (dirRight)
-            transform.Translate(Vector2.right * speed * Time.deltaTime);
-        else
-            transform.Translate(-Vector2.right * speed * Time.deltaTime);
+        moveEnemy();
+        changeDirection();
+    }
 
-        if (transform.position.x >= -4.0f)
+    private void moveEnemy()
+    {
+        if (dirRight)
+        {
+            transform.Translate(Vector2.right * speed * Time.deltaTime);
+        }
+        else
+        {
+            transform.Translate(-Vector2.right * speed * Time.deltaTime);
+        }
+        
+
+    }
+
+    private void changeDirection()
+    {
+        if (transform.position.x >= rightTurnPoint)
         {
             dirRight = false;
         }
 
-        if (transform.position.x <= -6)
+        if (transform.position.x <= leftTurnPoint)
         {
             dirRight = true;
         }
+
     }
+
 }
