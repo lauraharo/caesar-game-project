@@ -17,7 +17,8 @@ TagManager:
   - 
   - Collideable
   - Player
-
+  - 
+  - 
   - 
   - 
   - 
@@ -50,4 +51,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 273787127
+    locked: 0
+  - name: Secret
+    uniqueID: 270158497
     locked: 0
