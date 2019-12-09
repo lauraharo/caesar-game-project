@@ -6,7 +6,7 @@ public class EnemyCollision : MonoBehaviour
 {
     // public variables
     public int hitDamage = 10;
-    public float timeBetweenAttacks = 0.5f;
+    public float timeBetweenAttacks = 0.2f;
 
     // private variables
     PlayerHealth playerHealth;
@@ -23,7 +23,7 @@ public class EnemyCollision : MonoBehaviour
         //enemyHealth = GetComponent<EnemyHealth>();
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerStay2D(Collider2D other)
     {
         // If the entering collider is the player, then player is in range to get damaged
         if (other.gameObject == player) {

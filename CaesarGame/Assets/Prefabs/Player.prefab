@@ -144,10 +144,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minGroundNormalY: 0.65
-  gravity: 0.6
-  maxFallSpeed: 15
+  gravity: 0.59
+  maxFallSpeed: 12
   maxSpeed: 5
-  jumpTakeOffSpeed: 12
+  jumpTakeOffSpeed: 12.3
   slideSpeed: 15
   slideLength: 45
   slideDisableCollider: {fileID: 5265110511323020140}
@@ -157,7 +157,9 @@ MonoBehaviour:
   ceilingCheck: {fileID: 5265110510263764543}
   attackStart: {fileID: 981021601}
   attackEnd: {fileID: 1201370111}
-  ceilingCheckRadius: 0.4
+  ceilingCheckRadius: 0.26
+  initialDeathTime: 400
+  isDead: 0
 --- !u!114 &5265110511323020136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,9 +172,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120a4a41ee60d0c4590a9091234fe0dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingHealth: 100
+  startingHealth: 50
   currentHealth: 0
   healthSlider: {fileID: 0}
+  flashColour: {r: 1, g: 1, b: 1, a: 0.2}
+  flashColourSecond: {r: 1, g: 1, b: 1, a: 1}
 --- !u!50 &5265110511323020142
 Rigidbody2D:
   serializedVersion: 4

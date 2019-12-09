@@ -32,4 +32,8 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene("VesanTaso");
     }
+
+    public void LoadAlicia() {
+        SceneManager.LoadScene("AliciaFight");
+    }
 }

@@ -11,8 +11,9 @@ public class PlayerHealth : MonoBehaviour
     // TODO: some of these can be used for player's sprite flash and death sound etc.
     // public AudioClip deathClip;                                 // The audio clip to play when the player dies.
 
-    public float flashSpeed = 5f;                               // The speed the damageImage will fade at.
-    public Color flashColour = new Color(1f, 1f, 1f, 0f);    // The colour the damageImage is set to, to flash.
+    float flashSpeed = 1f;
+    float invisibilityTime = 10f;                
+    public Color flashColour = new Color(1f, 1f, 1f, 0.2f);    // The colour the damageImage is set to, to flash.
     public Color flashColourSecond = new Color(1f, 1f, 1f, 1f);
     bool damaged;                                               // True when the player gets damaged.
 
@@ -35,25 +36,32 @@ public class PlayerHealth : MonoBehaviour
         // Set the initial health of the player.
         currentHealth = startingHealth;
         session = FindObjectOfType<GameSession>();
-        playerSprite = GameObject.FindGameObjectWithTag("Player").gameObject.GetComponent<SpriteRenderer>();
+        playerSprite = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         // If the player has just been damaged...
-        //if (damaged) {
-        //    // ... set the colour of the damageImage to the flash colour.
-        //    playerSprite.color = flashColour;
-        //}
-        //// Otherwise...
-        //else {
-        //    // ... transition the colour back to clear.
-        //    playerSprite.color = Color.Lerp(playerSprite.color, Color.clear, flashSpeed * Time.deltaTime);
-        //}
-
-        //// Reset the damaged flag.
-        //damaged = false;
+        if (damaged) {
+            // ... set the colour of the damageImage to the flash colour.
+            if (flashSpeed < 0) {
+                playerSprite.color = flashColourSecond;
+                flashSpeed = 1f;
+            }
+            else {
+                playerSprite.color = flashColour;
+            }
+            flashSpeed -= 0.5f;
+            invisibilityTime -= 0.2f;
+            if (invisibilityTime < 0) {
+                damaged = false;
+            }
+        } else {
+            flashSpeed = 1f;
+            invisibilityTime = 10f;
+            playerSprite.color = flashColourSecond;
+        }
     }
 
     public void AddHealth(int amount)
@@ -65,8 +73,9 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        if (invisibilityTime != 10f) return;
         // Set the damaged flag so the screen will flash.
-        //damaged = true;
+        damaged = true;
 
         // Reduce the current health by the damage amount.
         currentHealth -= amount;
@@ -80,6 +89,7 @@ public class PlayerHealth : MonoBehaviour
 
         // If the player has lost all it's health and the death flag hasn't been set yet...
         if (currentHealth == 0 && !isDead) {
+            damaged = false;
             healthSlider.value = 0;
             playerMovement.isDead = true;
             session.DeleteLives(1);
