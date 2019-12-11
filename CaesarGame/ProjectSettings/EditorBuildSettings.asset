@@ -6,15 +6,5 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/FinalScenes/StartMenu.unity
-    guid: cde8ed876b5e08a4b8d2c8c8a2d9f8c3
-  - enabled: 1
-    path: Assets/Scenes/FinalScenes/Intro.unity
-    guid: ef0f060cf93371a4a885482e0a093400
-  - enabled: 1
-    path: Assets/Scenes/FinalScenes/TrainingScene.unity
-    guid: 672d59a369adb124c8ac41f08dbde46f
-  - enabled: 1
-    path: Assets/Scenes/FinalScenes/GameOver.unity
-    guid: 66b6a0802de944d4c89903f846c26473
+    path: Assets/Scenes/FinalScenes/StartMenu.unit
   m_configObjects: {}
