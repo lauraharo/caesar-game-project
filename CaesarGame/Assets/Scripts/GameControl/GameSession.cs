@@ -9,6 +9,20 @@ public class GameSession : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] int score = 0;
     [SerializeField] int lives = 2;
+
+
+    private void Awake()
+    {
+        int numberOfGameSessions = FindObjectsOfType<GameSession>().Length;
+        if(numberOfGameSessions > 1)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            DontDestroyOnLoad(gameObject);
+        }
+    }
     void Start()
     {
         scoreText.text = score.ToString();
@@ -34,7 +48,25 @@ public class GameSession : MonoBehaviour
     public void DeleteLives(int amount)
     {
         lives -= amount;
-        if (lives == -1) SceneManager.LoadScene("GameOver");
+        var currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    public void ProcessPlayerDeath()
+    {
+        if (lives > 1){
+            DeleteLives(1);
+        }
+        else
+        {
+            ResetGameSession();
+        }
+    }
+
+    private void ResetGameSession()
+    {
+        SceneManager.LoadScene("GameOver");
+        Destroy(gameObject);
     }
     
 }
