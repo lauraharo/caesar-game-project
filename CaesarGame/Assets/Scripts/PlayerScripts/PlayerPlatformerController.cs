@@ -22,7 +22,7 @@ public class PlayerPlatformerController : PhysicsObject
 
     private bool canStandUp;
     private bool isFacingRight;
-    private bool isSliding;
+    public bool isSliding;
     public bool isDead;
     private float slideTime;
     private int deathTime;
