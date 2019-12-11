@@ -6,9 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/VesanTaso.unity
-    guid: 431184408e28d7543aa64b5754967edc
+    path: Assets/Scenes/FinalScenes/StartMenu.unity
+    guid: 3637de2d54b56a3438b1fe6739661be1
+  - enabled: 1
+    path: Assets/Scenes/FinalScenes/Intro.unity
+    guid: aa073dcc68c035e4ea739c7860d962ef
+  - enabled: 1
+    path: Assets/Scenes/FinalScenes/TrainingScene.unity
+    guid: efa7919b2dc7e664481404caa3fe69a7
   - enabled: 1
     path: Assets/Scenes/FinalScenes/GameOver.unity
-    guid: a09e9e6450ca4b840ac05efc869785c5
+    guid: 27282d3a552d4db4bae6d8c59df3810f
   m_configObjects: {}
