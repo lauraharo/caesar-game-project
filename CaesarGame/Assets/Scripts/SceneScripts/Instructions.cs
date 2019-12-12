@@ -9,9 +9,12 @@ public class Instructions : MonoBehaviour
     [SerializeField] TextMeshProUGUI instructionField;
     [SerializeField] PlayerPlatformerController player;
     [SerializeField] float endInstructionsDelay = 3f;
+    bool task1Completed = false;
+    bool task2Completed = false;
+    bool task3Completed = false;
+    bool task4Completed = false;
     void Start()
     {
-        instructionField = FindObjectOfType<TextMeshProUGUI>();
         player = FindObjectOfType<PlayerPlatformerController>();
         setInstructions(instructions);
         instructionField.text = instructions[0];
@@ -28,33 +31,37 @@ public class Instructions : MonoBehaviour
 
     private void TaskOne()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow) && !task1Completed)
         {
             instructionField.text = instructions[1];
+            task1Completed = true;
         }
     }
 
     private void TaskTwo()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space) && !task2Completed)
         {
             instructionField.text = instructions[2];
+            task2Completed = true;
         }
     }
 
     private void TaskThree()
     {
-        if (player.isSliding)
+        if (player.isSliding && !task3Completed)
         {
             instructionField.text = instructions[3];
+            task3Completed = true;
         }
     }
 
     private void TaskFour()
     {
-        if (Input.GetKey(KeyCode.LeftControl))
+        if (Input.GetKey(KeyCode.LeftControl) && !task4Completed)
         {
             instructionField.text = instructions[4];
+            task4Completed = true;
             StartCoroutine(EndInstructions());
         }
     }
