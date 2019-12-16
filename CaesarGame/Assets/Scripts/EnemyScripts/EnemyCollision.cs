@@ -6,19 +6,18 @@ public class EnemyCollision : MonoBehaviour
 {
     // public variables
     public int hitDamage = 10;
-    public float timeBetweenAttacks = 0.2f;
 
     // private variables
     PlayerHealth playerHealth;
+    EnemyHealth enemyHealth;
     GameObject player;
-    float size;
-    float timer;
     bool playerInRange;
 
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerHealth>();
+        enemyHealth = GetComponent<EnemyHealth>();
         // TODO: enemy health script
         //enemyHealth = GetComponent<EnemyHealth>();
     }
@@ -41,23 +40,18 @@ public class EnemyCollision : MonoBehaviour
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
-        // add time to the timer each update
-        timer += Time.deltaTime;
-
         // If the timer exceeds the time between attacks, the player is in range (and this enemy is alive), deal damage
-        if (timer >= timeBetweenAttacks && playerInRange && !player.GetComponent<PlayerPlatformerController>().isDead/*&& enemyHealth.currentHealth > 0*/ ) {
+        if (playerInRange && !player.GetComponent<PlayerPlatformerController>().isDead && enemyHealth.currentHealth > 0 ) {
             DealDamageToPlayer();
         }
-
     }
 
     // Deals damage to player
     void DealDamageToPlayer()
     {
         playerHealth.TakeDamage(hitDamage);
-        timer = 0;
     }
 
 

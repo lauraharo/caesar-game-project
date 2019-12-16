@@ -7,12 +7,14 @@ public class PlayerHealth : MonoBehaviour
     public int startingHealth = 100;                            // The amount of health the player starts the game with.
     public int currentHealth;                                   // The current health the player has.
     public Slider healthSlider;                                 // Reference to the UI's health bar.
+    [SerializeField] float invisibilityTimeFrame = 5f;
+
 
     // TODO: some of these can be used for player's sprite flash and death sound etc.
     // public AudioClip deathClip;                                 // The audio clip to play when the player dies.
 
     float flashSpeed = 1f;
-    float invisibilityTime = 10f;                
+    float invisibilityTime;                
     public Color flashColour = new Color(1f, 1f, 1f, 0.2f);    // The colour the damageImage is set to, to flash.
     public Color flashColourSecond = new Color(1f, 1f, 1f, 1f);
     bool damaged;                                               // True when the player gets damaged.
@@ -35,6 +37,7 @@ public class PlayerHealth : MonoBehaviour
         //playerShooting = GetComponentInChildren<PlayerShooting>();
 
         // Set the initial health of the player.
+        invisibilityTime = invisibilityTimeFrame;
         currentHealth = startingHealth;
         session = FindObjectOfType<GameSession>();
         playerSprite = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
@@ -54,13 +57,13 @@ public class PlayerHealth : MonoBehaviour
                 playerSprite.color = flashColour;
             }
             flashSpeed -= 0.5f;
-            invisibilityTime -= 0.2f;
+            invisibilityTime -= 0.1f;
             if (invisibilityTime < 0) {
                 damaged = false;
             }
         } else {
             flashSpeed = 1f;
-            invisibilityTime = 10f;
+            invisibilityTime = invisibilityTimeFrame;
             playerSprite.color = flashColourSecond;
         }
     }
@@ -74,9 +77,10 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        if (invisibilityTime != 10f) return;
+        if (invisibilityTime != invisibilityTimeFrame) return;
         // Set the damaged flag so the screen will flash.
         damaged = true;
+        invisibilityTime -= 0.1f;
 
         // Reduce the current health by the damage amount.
         currentHealth -= amount;

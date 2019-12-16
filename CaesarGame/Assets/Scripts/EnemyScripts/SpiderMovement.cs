@@ -9,6 +9,7 @@ public class SpiderMovement : MonoBehaviour
     [SerializeField] float turnPointUp;
     [SerializeField] float turnPointDown;
     [SerializeField] float spiderMovementLength = 4f;
+    EnemyHealth eh;
 
     bool isMovingDown = true;
     void Start()
@@ -17,13 +18,16 @@ public class SpiderMovement : MonoBehaviour
         turnPointUp = transform.position.y;
         turnPointDown = turnPointUp - spiderMovementLength;
         Debug.Log("turn point up: " + turnPointUp + " turn point down: " + turnPointDown);
+        eh = GetComponent<EnemyHealth>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        MoveSpider();
-        ChangeDirection();
+        if (!eh.isDead) {
+            MoveSpider();
+            ChangeDirection();
+        }
         
     }
 

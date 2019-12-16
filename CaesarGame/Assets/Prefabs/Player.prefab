@@ -1,35 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &981021600
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 981021601}
-  m_Layer: 0
-  m_Name: AttackStart
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &981021601
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 981021600}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.323, y: -0.21245372, z: -0.0153095275}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 5265110511323020146}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1201370110
 GameObject:
   m_ObjectHideFlags: 0
@@ -40,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1201370111}
   m_Layer: 0
-  m_Name: AttackEnd
+  m_Name: MeleeHitCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,11 +24,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1201370110}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.693, y: -0.21245372, z: -0.0153095275}
+  m_LocalPosition: {x: 0.2, y: -0.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5265110511323020146}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5265110510263764542
 GameObject:
@@ -126,7 +96,6 @@ Transform:
   m_Children:
   - {fileID: 5265110510263764543}
   - {fileID: 5265110512341017299}
-  - {fileID: 981021601}
   - {fileID: 1201370111}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -155,10 +124,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   ceilingCheck: {fileID: 5265110510263764543}
-  attackStart: {fileID: 981021601}
-  attackEnd: {fileID: 1201370111}
+  meleeHitCheck: {fileID: 1201370111}
   ceilingCheckRadius: 0.26
   initialDeathTime: 400
+  meleeRadius: 1
+  timeBetweenAttacks: 3.5
+  isSliding: 0
   isDead: 0
 --- !u!114 &5265110511323020136
 MonoBehaviour:
@@ -175,6 +146,7 @@ MonoBehaviour:
   startingHealth: 50
   currentHealth: 0
   healthSlider: {fileID: 0}
+  invisibilityTimeFrame: 6
   flashColour: {r: 1, g: 1, b: 1, a: 0.2}
   flashColourSecond: {r: 1, g: 1, b: 1, a: 1}
 --- !u!50 &5265110511323020142
