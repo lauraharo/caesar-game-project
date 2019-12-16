@@ -105,19 +105,8 @@ PrefabInstance:
       propertyPath: healthSlider
       value: 
       objectReference: {fileID: 6538967064397314646}
-    - target: {fileID: 5265110511323020140, guid: b03b8b8c3bf69574186720a4f2b8156f,
-        type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b03b8b8c3bf69574186720a4f2b8156f, type: 3}
---- !u!1 &6538967064319283632 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5265110511323020144, guid: b03b8b8c3bf69574186720a4f2b8156f,
-    type: 3}
-  m_PrefabInstance: {fileID: 1418209450332760768}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6538967064319283634 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5265110511323020146, guid: b03b8b8c3bf69574186720a4f2b8156f,
@@ -191,11 +180,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7519324972954276556, guid: b3caa96b58df78a448fa734c8e287602,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 6538967064319283632}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3caa96b58df78a448fa734c8e287602, type: 3}
 --- !u!4 &6538967062824025103 stripped
@@ -211,11 +195,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6538967063472823529}
     m_Modifications:
-    - target: {fileID: 7454247756473862934, guid: 5c79db928fc02bc41b4c319994ad54fc,
-        type: 3}
-      propertyPath: m_Name
-      value: HUDCanvas
-      objectReference: {fileID: 0}
     - target: {fileID: 7454247756473862933, guid: 5c79db928fc02bc41b4c319994ad54fc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -320,6 +299,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7454247756473862934, guid: 5c79db928fc02bc41b4c319994ad54fc,
+        type: 3}
+      propertyPath: m_Name
+      value: HUDCanvas
       objectReference: {fileID: 0}
     - target: {fileID: 7454247757550502668, guid: 5c79db928fc02bc41b4c319994ad54fc,
         type: 3}
