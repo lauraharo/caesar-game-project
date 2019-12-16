@@ -7,15 +7,17 @@ using TMPro;
 public class GameSession : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI livesText;
     [SerializeField] int score = 0;
-    [SerializeField] int lives = 2;
+    [SerializeField] int lives = 3;
 
 
     private void Awake()
     {
         int numberOfGameSessions = FindObjectsOfType<GameSession>().Length;
-        if(numberOfGameSessions > 1)
+        if (numberOfGameSessions > 1)
         {
+            gameObject.SetActive(false);
             Destroy(gameObject);
         }
         else
@@ -25,7 +27,9 @@ public class GameSession : MonoBehaviour
     }
     void Start()
     {
+        
         scoreText.text = score.ToString();
+        livesText.text = lives.ToString();
     }
 
     // Update is called once per frame
@@ -36,6 +40,7 @@ public class GameSession : MonoBehaviour
 
     public void addToScore(int pointToAdd)
     {
+        Debug.Log(gameObject.transform.position.x);
         score += pointToAdd;
         scoreText.text = score.ToString();
     }
@@ -43,16 +48,19 @@ public class GameSession : MonoBehaviour
     public void AddLives(int amount)
     {
         lives += amount;
+        livesText.text = lives.ToString();
     }
 
     public void DeleteLives(int amount)
     {
         lives -= amount;
+        livesText.text = lives.ToString();
         var currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
     }
 
     public void ProcessPlayerDeath()
+        
     {
         if (lives > 1){
             DeleteLives(1);
@@ -68,5 +76,10 @@ public class GameSession : MonoBehaviour
         SceneManager.LoadScene("GameOver");
         Destroy(gameObject);
     }
-    
+    public void ResetGameOnWin()
+    {
+        SceneManager.LoadScene("Winner");
+        Destroy(gameObject);
+    }
+
 }

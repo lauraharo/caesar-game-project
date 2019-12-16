@@ -27,6 +27,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Awake()
     {
+        healthSlider = FindObjectOfType<Slider>();
         // Setting up the references.
         anim = GetComponent<Animator>();
         // playerAudio = GetComponent<AudioSource>();
@@ -93,6 +94,8 @@ public class PlayerHealth : MonoBehaviour
             healthSlider.value = 0;
             playerMovement.isDead = true;
             session.ProcessPlayerDeath();
+            healthSlider.value = startingHealth;
+            playerMovement.isDead = false;
         }
     }
 }

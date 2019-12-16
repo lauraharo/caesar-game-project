@@ -7,10 +7,21 @@ public class SceneLoader : MonoBehaviour
 {
 
     int scene;
+    GameSession session;
+
+    private void Start()
+    {
+        session = FindObjectOfType<GameSession>();
+    }
     public void LoadNextScene()
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex + 1);
+    }
+
+    public void LoadWinner()
+    {
+        SceneManager.LoadScene("Winner");
     }
 
     public void LoadGameOver()

@@ -15,6 +15,15 @@ EditorBuildSettings:
     path: Assets/Scenes/FinalScenes/TrainingScene.unity
     guid: 672d59a369adb124c8ac41f08dbde46f
   - enabled: 1
+    path: Assets/Scenes/FinalScenes/Level1.unity
+    guid: f32ff2850b77a3243a4c9f45c11fa560
+  - enabled: 1
+    path: Assets/Scenes/FinalScenes/Level2.unity
+    guid: 42e06c885bcfd104f8d237e7080c5117
+  - enabled: 1
+    path: Assets/Scenes/FinalScenes/Winner.unity
+    guid: 4b258e7da07f64846b619c7484ba6f39
+  - enabled: 1
     path: Assets/Scenes/FinalScenes/GameOver.unity
     guid: 66b6a0802de944d4c89903f846c26473
   m_configObjects: {}
