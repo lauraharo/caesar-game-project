@@ -5,17 +5,18 @@ using TMPro;
 
 public class Instructions : MonoBehaviour
 {
-    string[] instructions = new string[5];
-    [SerializeField] TextMeshProUGUI instructionField;
-    [SerializeField] PlayerPlatformerController player;
+    [SerializeField] TextMeshProUGUI instructionField = null;
+    [SerializeField] PlayerPlatformerController player = null;
     [SerializeField] float endInstructionsDelay = 3f;
+
+    string[] instructions = new string[5];
     bool task1Completed = false;
     bool task2Completed = false;
     bool task3Completed = false;
     bool task4Completed = false;
+
     void Start()
     {
-        player = FindObjectOfType<PlayerPlatformerController>();
         setInstructions(instructions);
         instructionField.text = instructions[0];
     }

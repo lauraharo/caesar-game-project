@@ -13,6 +13,7 @@ public class SceneLoader : MonoBehaviour
         persistor = FindObjectOfType<ScenePersist>();
         session = FindObjectOfType<GameSession>();
     }
+
     public void LoadNextScene()
     {
         DestroyPersistor();

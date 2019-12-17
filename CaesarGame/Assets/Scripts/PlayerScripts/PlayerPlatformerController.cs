@@ -5,15 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class PlayerPlatformerController : PhysicsObject
 {
-
     public float maxSpeed = 7f;
     public float jumpTakeOffSpeed = 7f;
     public float slideSpeed = 5f;
     public float slideLength = 5f;
 
-    [SerializeField] Collider2D slideDisableCollider;
-    [SerializeField] LayerMask whatIsGround;
-    [SerializeField] Transform ceilingCheck, meleeHitCheck;
+    [SerializeField] Collider2D slideDisableCollider = null;
+    [SerializeField] LayerMask whatIsGround = 1 << 8;
+    [SerializeField] Transform ceilingCheck = null, meleeHitCheck = null;
     [SerializeField] float ceilingCheckRadius = 0.4f;
     [SerializeField] int initialDeathTime = 400;
     [SerializeField] float meleeRadius = 0.05f;
