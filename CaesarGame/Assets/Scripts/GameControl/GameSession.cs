@@ -2,84 +2,77 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
 
+[RequireComponent(typeof(SceneLoader))]
 public class GameSession : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI scoreText;
-    [SerializeField] TextMeshProUGUI livesText;
-    [SerializeField] int score = 0;
-    [SerializeField] int lives = 3;
 
+    public static GameSession instance;
+    
+
+    public const int initialLives = 3;
+    public const int initialScore = 0;
+
+    public int score = 0;
+    public int lives = 3;
+
+    SceneLoader sceneLoader;
 
     private void Awake()
     {
-        int numberOfGameSessions = FindObjectsOfType<GameSession>().Length;
-        if (numberOfGameSessions > 1)
-        {
-            gameObject.SetActive(false);
+        sceneLoader = GetComponent<SceneLoader>();
+
+        if (instance == null) {
+            instance = this;
+        } else if (instance != this) {
             Destroy(gameObject);
         }
-        else
-        {
-            DontDestroyOnLoad(gameObject);
-        }
+
+        
+
+        DontDestroyOnLoad(gameObject);
     }
     void Start()
     {
-        
-        scoreText.text = score.ToString();
-        livesText.text = lives.ToString();
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void addToScore(int pointToAdd)
     {
-        Debug.Log(gameObject.transform.position.x);
         score += pointToAdd;
-        scoreText.text = score.ToString();
+        //scoreText.text = score.ToString();
     }
 
     public void AddLives(int amount)
     {
         lives += amount;
-        livesText.text = lives.ToString();
+        
     }
 
     public void DeleteLives(int amount)
     {
         lives -= amount;
-        livesText.text = lives.ToString();
+        //livesText.text = lives.ToString();
         var currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
     }
 
     public void ProcessPlayerDeath()
-        
-    {
+     {
+        Debug.Log("Processing player death");
         if (lives > 1){
             DeleteLives(1);
         }
         else
         {
-            ResetGameSession();
+            sceneLoader.LoadGameOver();
         }
     }
-
-    private void ResetGameSession()
-    {
-        SceneManager.LoadScene("GameOver");
-        Destroy(gameObject);
-    }
-    public void ResetGameOnWin()
-    {
-        SceneManager.LoadScene("Winner");
-        Destroy(gameObject);
-    }
-
 }

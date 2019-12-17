@@ -1,16 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(SceneLoader))]
 public class WinGame : MonoBehaviour
 {
-    [SerializeField] GameSession session;
+    [SerializeField] SceneLoader sceneLoader;
     [SerializeField] float levelLoadDelay = 1f;
 
-    private void Start()
+    private void Awake()
     {
-        session = FindObjectOfType<GameSession>();
+        sceneLoader = FindObjectOfType<SceneLoader>();
     }
 
     void OnTriggerEnter2D(Collider2D collider)
@@ -22,6 +22,6 @@ public class WinGame : MonoBehaviour
     {
 
         yield return new WaitForSecondsRealtime(levelLoadDelay);
-        session.ResetGameOnWin();
+        sceneLoader.LoadWinner();
     }
 }

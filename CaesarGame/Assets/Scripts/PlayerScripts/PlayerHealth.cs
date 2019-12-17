@@ -97,9 +97,9 @@ public class PlayerHealth : MonoBehaviour
             damaged = false;
             healthSlider.value = 0;
             playerMovement.isDead = true;
-            session.ProcessPlayerDeath();
-            healthSlider.value = startingHealth;
-            playerMovement.isDead = false;
+            
+            // healthSlider.value = startingHealth;
+            // playerMovement.isDead = false;
         }
     }
 }

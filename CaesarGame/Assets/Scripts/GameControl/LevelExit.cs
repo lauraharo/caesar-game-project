@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class LevelExit : MonoBehaviour
 {
     [SerializeField] float levelLoadDelay = 1f;
+    [SerializeField] SceneLoader sceneloader;
+
 
     void OnTriggerEnter2D(Collider2D collider)
     {
@@ -16,7 +18,6 @@ public class LevelExit : MonoBehaviour
     {
         
         yield return new WaitForSecondsRealtime(levelLoadDelay);
-        var currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentSceneIndex + 1);
+        sceneloader.LoadNextScene();
     }
 }

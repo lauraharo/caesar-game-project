@@ -6,12 +6,12 @@ public class DeathTrigger : MonoBehaviour
 {
     GameObject player;
     PlayerHealth health;
-    GameSession session;
+    // GameSession session;
 
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        session = FindObjectOfType<GameSession>();
+        // session = FindObjectOfType<GameSession>();
         health = player.GetComponent<PlayerHealth>();
     }
 
@@ -19,7 +19,8 @@ public class DeathTrigger : MonoBehaviour
     {
         Debug.Log("test death trigger");
         if (collision.gameObject == player) {
-            session.ProcessPlayerDeath();
+            health.TakeDamage(health.currentHealth);
+            // session.ProcessPlayerDeath();
         }
     }
 }

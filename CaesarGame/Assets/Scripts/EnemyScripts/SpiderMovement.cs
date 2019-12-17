@@ -17,7 +17,6 @@ public class SpiderMovement : MonoBehaviour
         //spiderRigidBody = GetComponent<Rigidbody2D>();
         turnPointUp = transform.position.y;
         turnPointDown = turnPointUp - spiderMovementLength;
-        Debug.Log("turn point up: " + turnPointUp + " turn point down: " + turnPointDown);
         eh = GetComponent<EnemyHealth>();
     }
 

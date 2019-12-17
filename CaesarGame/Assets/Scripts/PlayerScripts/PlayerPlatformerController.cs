@@ -180,16 +180,14 @@ public class PlayerPlatformerController : PhysicsObject
             move.x = 0;
             playerHealth.enabled = false;
         }
+
         deathTime--;
-        if (deathTime == 0) Respawn();
+        if (deathTime <= 0) Respawn();
+        
+        
     }
 
     private void Respawn() {
-        transform.position = startPosition;
-        if (!isFacingRight) Flip();
-        isDead = false;
-        deathTime = initialDeathTime;
-        playerHealth.enabled = true;
-        playerHealth.AddHealth(50);
+        FindObjectOfType<GameSession>().ProcessPlayerDeath();
     }
 }
