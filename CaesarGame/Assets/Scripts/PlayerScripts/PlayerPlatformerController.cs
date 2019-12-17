@@ -11,20 +11,21 @@ public class PlayerPlatformerController : PhysicsObject
     public float slideSpeed = 5f;
     public float slideLength = 5f;
 
-    [SerializeField] private Collider2D slideDisableCollider;
-    [SerializeField] private LayerMask whatIsGround;
-    [SerializeField] private Transform ceilingCheck, attackStart, attackEnd;
-    [SerializeField] private float ceilingCheckRadius = 0.4f;
-    [SerializeField] private int initialDeathTime = 400;
+    [SerializeField] Collider2D slideDisableCollider;
+    [SerializeField] LayerMask whatIsGround;
+    [SerializeField] Transform ceilingCheck, meleeHitCheck;
+    [SerializeField] float ceilingCheckRadius = 0.4f;
+    [SerializeField] int initialDeathTime = 400;
+    [SerializeField] float meleeRadius = 0.05f;
+    [SerializeField] float timeBetweenAttacks = 10f;
 
     private SpriteRenderer spriteRenderer;
     private Animator animator;
 
-    private bool canStandUp;
-    private bool isFacingRight;
+    private bool canStandUp, isFacingRight;
     public bool isSliding;
     public bool isDead;
-    private float slideTime;
+    private float slideTime, attackTimer;
     private int deathTime;
     private Vector2 move;
     Vector3 startPosition;
@@ -40,6 +41,7 @@ public class PlayerPlatformerController : PhysicsObject
         isFacingRight = true;
         isDead = false;
         deathTime = initialDeathTime;
+        attackTimer = 0;
         startPosition = transform.position;
         playerHealth = gameObject.GetComponent<PlayerHealth>();
     }
@@ -109,7 +111,11 @@ public class PlayerPlatformerController : PhysicsObject
         move.x = Input.GetAxis("Horizontal");
 
         HandleJumpAndSlide();
-        HandleAttack();
+
+        if (attackTimer > 0 ) attackTimer -= 0.1f;
+        if (attackTimer <= 0) {
+            HandleAttack();
+        }
 
         targetVelocity = move * maxSpeed;
     }
@@ -127,7 +133,7 @@ public class PlayerPlatformerController : PhysicsObject
     {
         
         if (Input.GetButtonDown("Jump") && grounded) {
-            if (Input.GetKey(KeyCode.DownArrow)) {
+            if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow)) {
                 ToggleSlide();
             }
             else {
@@ -153,17 +159,18 @@ public class PlayerPlatformerController : PhysicsObject
     
     private void HandleAttack() {
         if (Input.GetButtonDown("Fire1")) {
+            attackTimer = timeBetweenAttacks;
             animator.SetTrigger("PlayerAttack");
             
-            RaycastHit2D hit = Physics2D.Linecast(attackStart.position, attackEnd.position, 1 << 8);
+            Collider2D hit = Physics2D.OverlapCircle(meleeHitCheck.position, meleeRadius, 1 << 10);
 
             // here we can add damage cause to enemy logic
-            if (hit.collider != null) {
-                Debug.Log("you punched wall");
+            if (hit != null) {
+                EnemyHealth eh = hit.GetComponent<EnemyHealth>(); //.GetComponent<EnemyHealth>();
+                if (eh != null) {
+                    eh.TakeDamage(1);
+                }
             }
-
-            // Debug.DrawLine(attackStart.position, attackEnd.position, Color.green, 1f);
-
         }
     }
 

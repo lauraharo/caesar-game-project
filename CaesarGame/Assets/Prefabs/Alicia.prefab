@@ -10,7 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3969267747552309949}
   - component: {fileID: 3969267747552309938}
-  m_Layer: 9
+  - component: {fileID: 1802763639101276730}
+  - component: {fileID: 41182493}
+  - component: {fileID: 41182492}
+  m_Layer: 10
   m_Name: Alicia
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,3 +82,58 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1802763639101276730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3969267747552309939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a981c7056b7e5640be1a4e79d89613c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initialHealth: 5
+  flashColour: {r: 1, g: 1, b: 1, a: 0.2}
+  flashColourSecond: {r: 1, g: 1, b: 1, a: 1}
+--- !u!61 &41182493
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3969267747552309939}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.06712818}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1.5052084, y: 1.4114584}
+    newSize: {x: 1.5052084, y: 1.4114584}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5821954, y: 1.1429462}
+  m_EdgeRadius: 0
+--- !u!114 &41182492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3969267747552309939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89b882d63b55d7a44835f2715812548e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitDamage: 15
+  timeBetweenAttacks: 0.2
