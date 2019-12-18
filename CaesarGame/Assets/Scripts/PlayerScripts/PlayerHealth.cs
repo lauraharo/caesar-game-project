@@ -4,51 +4,44 @@ using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int startingHealth = 100;                            // The amount of health the player starts the game with.
-    public int currentHealth;                                   // The current health the player has.
-    public Slider healthSlider;                                 // Reference to the UI's health bar.
     [SerializeField] float invisibilityTimeFrame = 5f;
 
-
-    // TODO: some of these can be used for player's sprite flash and death sound etc.
-    // public AudioClip deathClip;                                 // The audio clip to play when the player dies.
+    public int startingHealth = 50;                
+    public int currentHealth = 0;                                 
+    public Slider healthSlider = null;                                
 
     float flashSpeed = 1f;
-    float invisibilityTime;                
-    public Color flashColour = new Color(1f, 1f, 1f, 0.2f);    // The colour the damageImage is set to, to flash.
-    public Color flashColourSecond = new Color(1f, 1f, 1f, 1f);
-    bool damaged;                                               // True when the player gets damaged.
+    float invisibilityTime;         
+    Color flashColour = new Color(1f, 1f, 1f, 0.2f);    
+    Color flashColourSecond = new Color(1f, 1f, 1f, 1f);
 
-    Animator anim;                                              // Reference to the Animator component.
-    //AudioSource playerAudio;                                    // Reference to the AudioSource component.
-    PlayerPlatformerController playerMovement;                              // Reference to the player's movement. Use this to disallow movement when dead
+    bool damaged;                                            
+    bool isDead;                                                
+
+    Animator anim;                                              
+    PlayerPlatformerController playerMovement;                            
     GameSession session;
     SpriteRenderer playerSprite;
 
-    bool isDead;                                                // Whether the player is dead.
 
     void Awake()
     {
+        // Initialize variables
         healthSlider = FindObjectOfType<Slider>();
-        // Setting up the references.
         anim = GetComponent<Animator>();
-        // playerAudio = GetComponent<AudioSource>();
         playerMovement = GetComponent<PlayerPlatformerController>();
-        //playerShooting = GetComponentInChildren<PlayerShooting>();
-
-        // Set the initial health of the player.
         invisibilityTime = invisibilityTimeFrame;
         currentHealth = startingHealth;
         session = FindObjectOfType<GameSession>();
         playerSprite = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
+        isDead = false;
     }
 
 
     void FixedUpdate()
     {
-        // If the player has just been damaged...
+        // If the player has just been damaged flash the player during invisibility time
         if (damaged) {
-            // ... set the colour of the damageImage to the flash colour.
             if (flashSpeed < 0) {
                 playerSprite.color = flashColourSecond;
                 flashSpeed = 1f;
@@ -78,28 +71,22 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int amount)
     {
         if (invisibilityTime != invisibilityTimeFrame) return;
-        // Set the damaged flag so the screen will flash.
+
         damaged = true;
         invisibilityTime -= 0.1f;
 
-        // Reduce the current health by the damage amount.
         currentHealth -= amount;
         if (currentHealth < 0) currentHealth = 0;
 
         // Set the health bar's value to the current health.
         healthSlider.value = currentHealth;
 
-        // Play the hurt sound effect.
-        //playerAudio.Play();
-
         // If the player has lost all it's health and the death flag hasn't been set yet...
         if (currentHealth == 0 && !isDead) {
             damaged = false;
             healthSlider.value = 0;
             playerMovement.isDead = true;
-            session.ProcessPlayerDeath();
-            healthSlider.value = startingHealth;
-            playerMovement.isDead = false;
+            isDead = true;
         }
     }
 }

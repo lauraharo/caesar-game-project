@@ -5,33 +5,30 @@ using UnityEngine.SceneManagement;
 
 public class PlayerPlatformerController : PhysicsObject
 {
-
     public float maxSpeed = 7f;
     public float jumpTakeOffSpeed = 7f;
     public float slideSpeed = 5f;
     public float slideLength = 5f;
+    public bool isSliding, isDead;
 
-    [SerializeField] Collider2D slideDisableCollider;
-    [SerializeField] LayerMask whatIsGround;
-    [SerializeField] Transform ceilingCheck, meleeHitCheck;
+    [SerializeField] Collider2D slideDisableCollider = null;
+    [SerializeField] LayerMask whatIsGround = 1 << 8;
+    [SerializeField] Transform ceilingCheck = null, meleeHitCheck = null;
     [SerializeField] float ceilingCheckRadius = 0.4f;
     [SerializeField] int initialDeathTime = 400;
     [SerializeField] float meleeRadius = 0.05f;
     [SerializeField] float timeBetweenAttacks = 10f;
 
-    private SpriteRenderer spriteRenderer;
-    private Animator animator;
+    bool canStandUp, isFacingRight;
+    float slideTime, attackTimer;
+    int deathTime;
 
-    private bool canStandUp, isFacingRight;
-    public bool isSliding;
-    public bool isDead;
-    private float slideTime, attackTimer;
-    private int deathTime;
-    private Vector2 move;
+    Vector2 move;
     Vector3 startPosition;
     PlayerHealth playerHealth;
+    SpriteRenderer spriteRenderer;
+    Animator animator;
 
-    // Use this for initialization
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -64,7 +61,6 @@ public class PlayerPlatformerController : PhysicsObject
             if (isSliding) HandleSlidingControls();
             else HandleControls();
         } else HandleDeath();
-        
 
         targetVelocity = isSliding ? move * slideSpeed : move * maxSpeed;
         canStandUp = !Physics2D.OverlapCircle(ceilingCheck.position, ceilingCheckRadius, whatIsGround);
@@ -73,7 +69,6 @@ public class PlayerPlatformerController : PhysicsObject
 
 
     // All logic regarrding movement during a slide is here
-    // TODO: Refactor the if structure
     private void HandleSlidingControls() {
         if (canStandUp && slideTime <= 0) ToggleSlide();
 
@@ -84,7 +79,7 @@ public class PlayerPlatformerController : PhysicsObject
             HandleJumpAndSlide();
         }
 
-        // read input: right or left keys positive values right, negative left
+        // read input: right or left keys - positive values right, negative left
         float horizontalInput = Input.GetAxis("Horizontal");
 
         if (!isFacingRight) {
@@ -164,9 +159,8 @@ public class PlayerPlatformerController : PhysicsObject
             
             Collider2D hit = Physics2D.OverlapCircle(meleeHitCheck.position, meleeRadius, 1 << 10);
 
-            // here we can add damage cause to enemy logic
             if (hit != null) {
-                EnemyHealth eh = hit.GetComponent<EnemyHealth>(); //.GetComponent<EnemyHealth>();
+                EnemyHealth eh = hit.GetComponent<EnemyHealth>();
                 if (eh != null) {
                     eh.TakeDamage(1);
                 }
@@ -180,16 +174,14 @@ public class PlayerPlatformerController : PhysicsObject
             move.x = 0;
             playerHealth.enabled = false;
         }
+
         deathTime--;
-        if (deathTime == 0) Respawn();
+        if (deathTime <= 0) Respawn();
+        
+        
     }
 
     private void Respawn() {
-        transform.position = startPosition;
-        if (!isFacingRight) Flip();
-        isDead = false;
-        deathTime = initialDeathTime;
-        playerHealth.enabled = true;
-        playerHealth.AddHealth(50);
+        FindObjectOfType<GameSession>().ProcessPlayerDeath();
     }
 }

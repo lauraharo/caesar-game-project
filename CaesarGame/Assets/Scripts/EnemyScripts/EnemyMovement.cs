@@ -7,13 +7,9 @@ public class EnemyMovement : MonoBehaviour
 
     [SerializeField] float leftTurnPoint = -6.0f;
     [SerializeField] float rightTurnPoint = -4.0f;
-    private bool dirRight = true;
     public float speed = 1.0f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
+    bool dirRight = true;
 
     void Update()
     {

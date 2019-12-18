@@ -4,22 +4,13 @@ using UnityEngine;
 
 public class DeathTrigger : MonoBehaviour
 {
-    GameObject player;
     PlayerHealth health;
-    GameSession session;
-
-    private void Awake()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
-        session = FindObjectOfType<GameSession>();
-        health = player.GetComponent<PlayerHealth>();
-    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("test death trigger");
-        if (collision.gameObject == player) {
-            session.ProcessPlayerDeath();
+        if (collision.gameObject.tag == "Player") {
+            health = collision.gameObject.GetComponent<PlayerHealth>();
+            if (health != null) health.TakeDamage(health.currentHealth);
         }
     }
 }
