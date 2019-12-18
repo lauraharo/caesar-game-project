@@ -7,7 +7,7 @@ public class Instructions : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI instructionField = null;
     [SerializeField] PlayerPlatformerController player = null;
-    [SerializeField] float endInstructionsDelay = 5f;
+    [SerializeField] float endInstructionsDelay = 0.1f;
     int instructionIndex = 0;
 
     string[] instructions = new string[5];
@@ -21,7 +21,8 @@ public class Instructions : MonoBehaviour
 
     public void LoadInstructions()
     {
-        Debug.Log("test");
+
+
         instructionIndex++;
         if(instructionIndex < instructions.Length)
         {
