@@ -648,6 +648,10 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 689288138, guid: 3121eeb61bc17914580221d89dfdf63a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.887
+      objectReference: {fileID: 0}
     - target: {fileID: 293969221, guid: 3121eeb61bc17914580221d89dfdf63a, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1382,6 +1386,10 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 689288138, guid: 3121eeb61bc17914580221d89dfdf63a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.72
+      objectReference: {fileID: 0}
     - target: {fileID: 293969221, guid: 3121eeb61bc17914580221d89dfdf63a, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1691,6 +1699,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 689288138, guid: 3121eeb61bc17914580221d89dfdf63a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.757
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3121eeb61bc17914580221d89dfdf63a, type: 3}
 --- !u!1001 &736229226
@@ -1836,7 +1848,7 @@ TilemapRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -657104611
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0.00390625, y: 0.0078125, z: 0}
@@ -50566,7 +50578,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 16.049107}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -50577,7 +50589,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 9.58, y: 6.69}
+  m_Size: {x: 9.58, y: 38.788216}
   m_EdgeRadius: 0
 --- !u!114 &1447663125
 MonoBehaviour:
@@ -50670,6 +50682,14 @@ PrefabInstance:
     - target: {fileID: 3969267747552309949, guid: a12990dba96a9fa4fb84529c2ede5a31,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 41182493, guid: a12990dba96a9fa4fb84529c2ede5a31, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 41182493, guid: a12990dba96a9fa4fb84529c2ede5a31, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -51128,6 +51148,10 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 689288138, guid: 3121eeb61bc17914580221d89dfdf63a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.86
+      objectReference: {fileID: 0}
     - target: {fileID: 293969221, guid: 3121eeb61bc17914580221d89dfdf63a, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -51262,6 +51286,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Material
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 689288138, guid: 3121eeb61bc17914580221d89dfdf63a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.88
       objectReference: {fileID: 0}
     - target: {fileID: 293969221, guid: 3121eeb61bc17914580221d89dfdf63a, type: 3}
       propertyPath: m_RootOrder

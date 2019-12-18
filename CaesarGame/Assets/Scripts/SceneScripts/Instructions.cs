@@ -3,30 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+enum Alpha { Transparent, Visible }
+
 public class Instructions : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI instructionField = null;
-    [SerializeField] PlayerPlatformerController player = null;
-    [SerializeField] float endInstructionsDelay = 0.1f;
+    [SerializeField] float endInstructionsDelay = 1f;
+
     int instructionIndex = 0;
 
     string[] instructions = new string[5];
 
     void Start()
     {
-        setInstructions(instructions);
+        SetInstructions(instructions);
         instructionField.text = instructions[instructionIndex];
-    }
+        instructionField.CrossFadeAlpha(1f, endInstructionsDelay, false);
 
+    }
 
     public void LoadInstructions()
     {
-
-
         instructionIndex++;
         if(instructionIndex < instructions.Length)
         {
-            instructionField.text = instructions[instructionIndex];
+            instructionField.CrossFadeAlpha(0, endInstructionsDelay, false);
+            StartCoroutine(ChangeInstruction());
         }
         else
         {
@@ -34,7 +36,13 @@ public class Instructions : MonoBehaviour
         }
     }
 
+    IEnumerator ChangeInstruction()
+    {
+        yield return new WaitForSeconds(endInstructionsDelay);
+        instructionField.text = instructions[instructionIndex];
+        instructionField.CrossFadeAlpha(1f, endInstructionsDelay, false);
 
+    }
 
     IEnumerator EndInstructions()
     {
@@ -44,7 +52,7 @@ public class Instructions : MonoBehaviour
         
     }
 
-    private void setInstructions(string[] instructions)
+    private void SetInstructions(string[] instructions)
     {
         instructions[0] = "Lets get started! Try to move with right and left arrow keys.";
         instructions[1] = "Good! Now try to jump with the space bar.";

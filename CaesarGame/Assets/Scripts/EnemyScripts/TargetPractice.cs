@@ -4,17 +4,37 @@ using UnityEngine;
 
 public class TargetPractice : MonoBehaviour
 {
-    private void OnDestroy()
+    [SerializeField] float delay = 0.5f;
+
+    float lerpTime;
+    EnemyHealth eh;
+    SpriteRenderer sr;
+    BoxCollider2D bc2d;
+
+
+    private void Start()
     {
-        EnableLevelExit();
-        GetComponent<ChangeInstructions>().Change();
+        eh = FindObjectOfType<EnemyHealth>();
+        sr = GetComponent<SpriteRenderer>();
+        bc2d = GetComponent<BoxCollider2D>();
+        lerpTime = 0f;
+        sr.color = new Color(123f / 255f, 100f / 255f, 100f / 255f, lerpTime);
     }
 
-    private void EnableLevelExit()
+    private void FixedUpdate()
     {
-        LevelExit le = FindObjectOfType<LevelExit>();
-        le.GetComponent<SpriteRenderer>().enabled = true;
-        le.GetComponent<BoxCollider2D>().enabled = true;
+ 
+        if (eh == null || eh.isDead) {
+            StartCoroutine(EnableExit());
+        }
+    }
 
+    IEnumerator EnableExit()
+    {
+        yield return new WaitForSeconds(delay);
+        if (lerpTime < 1) lerpTime += 0.02f;
+        sr.enabled = true;
+        bc2d.enabled = true;
+        sr.color = new Color(123f / 255f, 100f / 255f, 100f / 255f, lerpTime);
     }
 }

@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
     public int startingHealth = 50;                
     public int currentHealth = 0;                                 
     public Slider healthSlider = null;                                
+    public bool isDead;                                                
 
     float flashSpeed = 1f;
     float invisibilityTime;         
@@ -16,7 +17,6 @@ public class PlayerHealth : MonoBehaviour
     Color flashColourSecond = new Color(1f, 1f, 1f, 1f);
 
     bool damaged;                                            
-    bool isDead;                                                
 
     Animator anim;                                              
     PlayerPlatformerController playerMovement;                            
@@ -70,7 +70,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        if (invisibilityTime != invisibilityTimeFrame) return;
+        if (isDead || invisibilityTime != invisibilityTimeFrame) return;
 
         damaged = true;
         invisibilityTime -= 0.1f;

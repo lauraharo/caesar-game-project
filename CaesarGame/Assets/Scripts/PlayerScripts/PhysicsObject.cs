@@ -50,6 +50,7 @@ public class PhysicsObject : MonoBehaviour
     {
 
         if (velocity.y > maxFallSpeed) velocity.y -= gravity;
+        else velocity.y = maxFallSpeed;
         velocity.x = targetVelocity.x;
 
         grounded = false;

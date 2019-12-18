@@ -6,7 +6,7 @@ public class EnemyMovement : MonoBehaviour
 {
 
     [SerializeField] Transform pointA = null, pointB = null;
-    [SerializeField] float resetTime = 1.0f, smooth = 1, maxSpeed = 1.0f;
+    [SerializeField] float resetTime = 1.0f, smooth = 1;
 
     Vector3 newPos;
     EnemyHealth eh;
