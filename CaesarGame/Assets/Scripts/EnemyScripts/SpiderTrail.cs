@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class SpiderTrail : MonoBehaviour
 {
-    public Transform startPosition;
-    public Vector3 startPositionOffset;
-    public Transform endPosition;
-    public Vector3 endPositionOffset;
-    public float width = 3f;
+    
+    [SerializeField] Transform startPosition = null;
+    [SerializeField] Transform endPosition = null;
+    [SerializeField] Vector3 startPositionOffset = Vector3.zero;
+    [SerializeField] Vector3 endPositionOffset = Vector3.zero;
+    [SerializeField] float width = 3f;
 
     LineRenderer line;
 

@@ -4,10 +4,11 @@ using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int startingHealth = 100;                
+    [SerializeField] float invisibilityTimeFrame = 5f;
+
+    public int startingHealth = 50;                
     public int currentHealth = 0;                                 
     public Slider healthSlider = null;                                
-    [SerializeField] float invisibilityTimeFrame = 5f;
 
     float flashSpeed = 1f;
     float invisibilityTime;         
@@ -15,7 +16,7 @@ public class PlayerHealth : MonoBehaviour
     Color flashColourSecond = new Color(1f, 1f, 1f, 1f);
 
     bool damaged;                                            
-    bool isDead = false;                                                
+    bool isDead;                                                
 
     Animator anim;                                              
     PlayerPlatformerController playerMovement;                            
@@ -33,14 +34,14 @@ public class PlayerHealth : MonoBehaviour
         currentHealth = startingHealth;
         session = FindObjectOfType<GameSession>();
         playerSprite = GameObject.FindGameObjectWithTag("Player").GetComponent<SpriteRenderer>();
+        isDead = false;
     }
 
 
     void FixedUpdate()
     {
-        // If the player has just been damaged...
+        // If the player has just been damaged flash the player during invisibility time
         if (damaged) {
-            // ... set the colour of the damageImage to the flash colour.
             if (flashSpeed < 0) {
                 playerSprite.color = flashColourSecond;
                 flashSpeed = 1f;
@@ -70,25 +71,22 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int amount)
     {
         if (invisibilityTime != invisibilityTimeFrame) return;
-        // Set the damaged flag so the screen will flash.
+
         damaged = true;
         invisibilityTime -= 0.1f;
 
-        // Reduce the current health by the damage amount.
         currentHealth -= amount;
         if (currentHealth < 0) currentHealth = 0;
 
         // Set the health bar's value to the current health.
         healthSlider.value = currentHealth;
 
-        // Play the hurt sound effect.
-        //playerAudio.Play();
-
         // If the player has lost all it's health and the death flag hasn't been set yet...
         if (currentHealth == 0 && !isDead) {
             damaged = false;
             healthSlider.value = 0;
             playerMovement.isDead = true;
+            isDead = true;
         }
     }
 }

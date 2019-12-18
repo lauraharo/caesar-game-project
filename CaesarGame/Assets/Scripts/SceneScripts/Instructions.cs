@@ -21,7 +21,6 @@ public class Instructions : MonoBehaviour
         instructionField.text = instructions[0];
     }
 
-    // Update is called once per frame
     void Update()
     {
         TaskOne();

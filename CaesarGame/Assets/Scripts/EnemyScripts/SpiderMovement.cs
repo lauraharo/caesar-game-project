@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SpiderMovement : MonoBehaviour
 {
-   // Rigidbody2D spiderRigidBody;
     [SerializeField] float spiderSpeed = 1f;
     [SerializeField] float turnPointUp;
     [SerializeField] float turnPointDown;
@@ -12,15 +11,14 @@ public class SpiderMovement : MonoBehaviour
     EnemyHealth eh;
 
     bool isMovingDown = true;
+
     void Start()
     {
-        //spiderRigidBody = GetComponent<Rigidbody2D>();
         turnPointUp = transform.position.y;
         turnPointDown = turnPointUp - spiderMovementLength;
         eh = GetComponent<EnemyHealth>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!eh.isDead) {
@@ -29,7 +27,6 @@ public class SpiderMovement : MonoBehaviour
         }
         
     }
-
 
     private void MoveSpider()
     {
@@ -43,7 +40,6 @@ public class SpiderMovement : MonoBehaviour
         }
     }
   
-
     private void ChangeDirection()
     {
         if (transform.position.y <= turnPointDown)
@@ -57,15 +53,4 @@ public class SpiderMovement : MonoBehaviour
         }
 
     }
-
-    public float getSpiderSpeed()
-    {
-        return spiderSpeed;
-    }
-
-    public bool getIsMovingDown()
-    {
-        return isMovingDown;
-    }
-
 }

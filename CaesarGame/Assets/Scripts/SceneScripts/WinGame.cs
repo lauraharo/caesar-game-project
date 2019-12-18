@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(SceneLoader))]
 public class WinGame : MonoBehaviour
 {
-    [SerializeField] SceneLoader sceneLoader;
+    [SerializeField] SceneLoader sceneLoader = null;
     [SerializeField] float levelLoadDelay = 1f;
 
     private void Awake()

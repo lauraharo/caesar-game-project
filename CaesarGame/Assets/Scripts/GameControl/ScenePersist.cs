@@ -7,10 +7,8 @@ public class ScenePersist : MonoBehaviour
 {
     public static ScenePersist instance = null;
 
-
     private void Awake()
     {
-
         if (instance == null) {
             instance = this;
         }

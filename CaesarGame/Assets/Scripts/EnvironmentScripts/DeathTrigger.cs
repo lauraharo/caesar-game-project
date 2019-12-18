@@ -10,7 +10,7 @@ public class DeathTrigger : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player") {
             health = collision.gameObject.GetComponent<PlayerHealth>();
-            health.TakeDamage(health.currentHealth);
+            if (health != null) health.TakeDamage(health.currentHealth);
         }
     }
 }

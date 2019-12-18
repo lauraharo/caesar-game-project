@@ -6,10 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameSession : MonoBehaviour
 {
-    public static GameSession instance;
-    
-    public const int initialLives = 3;
-    public const int initialScore = 0;
+    public static GameSession instance = null;
 
     public int score = 0;
     public int lives = 3;
@@ -32,7 +29,6 @@ public class GameSession : MonoBehaviour
     public void AddToScore(int pointToAdd)
     {
         score += pointToAdd;
-        //scoreText.text = score.ToString();
     }
 
     public void AddLives(int amount)
