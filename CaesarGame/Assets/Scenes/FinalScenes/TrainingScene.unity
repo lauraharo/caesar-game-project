@@ -40400,6 +40400,19 @@ PrefabInstance:
       propertyPath: m_Follow
       value: 
       objectReference: {fileID: 425892290}
+    - target: {fileID: 1663993342, guid: b3caa96b58df78a448fa734c8e287602, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 40dc8cd5d0cbc724bb9d3680ed72e2ad,
+        type: 3}
+    - target: {fileID: 1663993342, guid: b3caa96b58df78a448fa734c8e287602, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1663993342, guid: b3caa96b58df78a448fa734c8e287602, type: 3}
+      propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b3caa96b58df78a448fa734c8e287602, type: 3}
 --- !u!4 &425892290 stripped
