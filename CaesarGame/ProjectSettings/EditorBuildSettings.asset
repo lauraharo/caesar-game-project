@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/FinalScenes/TrainingScene.unity
     guid: 672d59a369adb124c8ac41f08dbde46f
   - enabled: 1
+    path: Assets/Scenes/FinalScenes/SaminTaso.unity
+    guid: 78164580c8055bc478fbbafb67768494
+  - enabled: 1
     path: Assets/Scenes/FinalScenes/Level1.unity
     guid: f32ff2850b77a3243a4c9f45c11fa560
   - enabled: 1
