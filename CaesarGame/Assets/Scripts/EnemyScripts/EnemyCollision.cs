@@ -13,13 +13,11 @@ public class EnemyCollision : MonoBehaviour
     GameObject player;
     bool playerInRange;
 
-    void Awake()
+    void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerHealth>();
         enemyHealth = GetComponent<EnemyHealth>();
-        // TODO: enemy health script
-        //enemyHealth = GetComponent<EnemyHealth>();
     }
 
     void OnTriggerStay2D(Collider2D other)
@@ -43,7 +41,7 @@ public class EnemyCollision : MonoBehaviour
     void FixedUpdate()
     {
         // If the timer exceeds the time between attacks, the player is in range (and this enemy is alive), deal damage
-        if (playerInRange && !player.GetComponent<PlayerPlatformerController>().isDead && enemyHealth.currentHealth > 0 ) {
+        if (playerInRange && !player.GetComponent<PlayerPlatformerController>().isDead && !enemyHealth.isDead) {
             DealDamageToPlayer();
         }
     }

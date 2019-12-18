@@ -6,14 +6,15 @@ public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] int initialHealth = 1;
     [SerializeField] float invisibilityTimeFrame = 5f;
+    [SerializeField] Color flashColour = new Color(1f, 1f, 1f, 0.2f);
+    [SerializeField] Color flashColourSecond = new Color(1f, 1f, 1f, 1f);
+
     public int currentHealth;
     public bool isDead;
     public bool damaged;         
 
     float flashSpeed = 1f;
     float invisibilityTime;
-    public Color flashColour = new Color(1f, 1f, 1f, 0.2f);    // The colour the damageImage is set to, to flash.
-    public Color flashColourSecond = new Color(1f, 1f, 1f, 1f);
     
     SpriteRenderer enemySprite;
 

@@ -3,25 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class WinGame : MonoBehaviour
+public class LevelExit : MonoBehaviour
 {
-    [SerializeField] GameSession session;
     [SerializeField] float levelLoadDelay = 1f;
-
-    private void Start()
-    {
-        session = FindObjectOfType<GameSession>();
-    }
+    [SerializeField] SceneLoader sceneloader = null;
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        StartCoroutine(LoadWinLevel());
+        StartCoroutine(LoadNextLevel());
     }
 
-    IEnumerator LoadWinLevel()
+    IEnumerator LoadNextLevel()
     {
-
+        
         yield return new WaitForSecondsRealtime(levelLoadDelay);
-        session.ResetGameOnWin();
+        if (sceneloader == null) sceneloader = GetComponent<SceneLoader>();
+        sceneloader.LoadNextScene();
     }
 }

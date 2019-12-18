@@ -5,48 +5,43 @@ using UnityEngine;
 public class EnemyMovement : MonoBehaviour
 {
 
-    [SerializeField] float leftTurnPoint = -6.0f;
-    [SerializeField] float rightTurnPoint = -4.0f;
-    private bool dirRight = true;
-    public float speed = 1.0f;
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Transform pointA = null, pointB = null;
+    [SerializeField] float resetTime = 1.0f, smooth = 1, maxSpeed = 1.0f;
+
+    Vector3 newPos;
+    EnemyHealth eh;
+    States state;
+
+    enum States { movingTowardsA, movingTowardsB }
+
+    private void Awake()
     {
-        
+        eh = GetComponent<EnemyHealth>();
+        transform.position = pointA.position;
+        state = States.movingTowardsB;
     }
 
-    void Update()
+    private void Start()
     {
-        moveEnemy();
-        changeDirection();
+        ChangeTarget();
     }
 
-    private void moveEnemy()
+    void FixedUpdate()
     {
-        if (dirRight)
-        {
-            transform.Translate(Vector2.right * speed * Time.deltaTime);
-        }
-        else
-        {
-            transform.Translate(-Vector2.right * speed * Time.deltaTime);
-        }
-        
-
+        transform.position = Vector2.LerpUnclamped(transform.position, newPos, smooth * Time.deltaTime);
     }
 
-    private void changeDirection()
-    {
-        if (transform.position.x >= rightTurnPoint)
-        {
-            dirRight = false;
+    void ChangeTarget() {
+        if (state == States.movingTowardsB) {
+            state = States.movingTowardsA;
+            newPos = pointB.position;
+        }
+        else if (state == States.movingTowardsA) {
+            state = States.movingTowardsB;
+            newPos = pointA.position;
         }
 
-        if (transform.position.x <= leftTurnPoint)
-        {
-            dirRight = true;
-        }
-
+        Invoke("ChangeTarget", resetTime);
     }
-
 }
+

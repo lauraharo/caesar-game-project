@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PhysicsObject : MonoBehaviour
 {
-
     public float minGroundNormalY = .65f;
     public float gravity = 0.6f;
     public float maxFallSpeed = 15f;
@@ -99,8 +98,6 @@ public class PhysicsObject : MonoBehaviour
                 float modifiedDistance = hitBufferList[i].distance - shellRadius;
                 distance = modifiedDistance < distance ? modifiedDistance : distance;
             }
-
-
         }
 
         rb2d.position = rb2d.position + move.normalized * distance;
