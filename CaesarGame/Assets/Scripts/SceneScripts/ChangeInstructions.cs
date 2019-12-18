@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class ChangeInstructions : MonoBehaviour
 {
-    Instructions instructor;
+    Instructions instructor = null;
+    bool entered = false;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        instructor = FindObjectOfType<Instructions>();
-        instructor.LoadInstructions();
-        Destroy(gameObject);
+        Change();
+    }
+
+    public void Change() {
+        if (!entered) {
+            instructor = FindObjectOfType<Instructions>();
+            instructor.LoadInstructions();
+            Destroy(gameObject);
+            entered = true;
+        }
     }
 }

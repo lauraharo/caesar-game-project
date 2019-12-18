@@ -8,12 +8,6 @@ public class SceneLoader : MonoBehaviour
     ScenePersist persistor;
     GameSession session;
 
-    private void Start()
-    {
-        persistor = FindObjectOfType<ScenePersist>();
-        session = FindObjectOfType<GameSession>();
-    }
-
     public void LoadNextScene()
     {
         DestroyPersistor();
@@ -23,7 +17,7 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadWinner()
     {
-        DestroyPersistor();
+        DestroyPersistorAndGameSession();
         SceneManager.LoadScene("Winner");
     }
 
@@ -52,10 +46,13 @@ public class SceneLoader : MonoBehaviour
 
     void DestroyPersistor()
     {
+        persistor = FindObjectOfType<ScenePersist>();
         if (persistor != null) Destroy(persistor.gameObject);
     }
 
     void DestroyPersistorAndGameSession() {
+        persistor = FindObjectOfType<ScenePersist>();
+        session = FindObjectOfType<GameSession>();
         if (persistor != null) Destroy(persistor.gameObject);
         if (session != null) Destroy(session.gameObject);
     }

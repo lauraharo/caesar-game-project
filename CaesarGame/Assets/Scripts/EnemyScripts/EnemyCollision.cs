@@ -13,7 +13,7 @@ public class EnemyCollision : MonoBehaviour
     GameObject player;
     bool playerInRange;
 
-    void Awake()
+    void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerHealth = player.GetComponent<PlayerHealth>();

@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4c8cc4659c85242a05c01321425e61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelLoadDelay: 2
+  levelLoadDelay: 0.5
   sceneloader: {fileID: 1513982073}
 --- !u!114 &1513982073
 MonoBehaviour:
