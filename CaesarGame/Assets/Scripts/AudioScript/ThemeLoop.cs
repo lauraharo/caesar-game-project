@@ -4,18 +4,29 @@ using UnityEngine;
 
 public class ThemeLoop : MonoBehaviour
 {
-    public AudioSource musicSource;
-    public AudioClip musicStart;
-    // Start is called before the first frame update
-    void Start()
+
+    public static ThemeLoop instance = null;
+    void Awake()
     {
-        musicSource.PlayOneShot(musicStart);
-        musicSource.PlayScheduled(AudioSettings.dspTime + musicStart.length);
+        SetUpSingleton();
     }
 
-    // Update is called once per frame
+    private void SetUpSingleton()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(gameObject);
+        }
+
+        DontDestroyOnLoad(gameObject);
+    }
+ 
     void Update()
     {
-        
+
     }
 }
