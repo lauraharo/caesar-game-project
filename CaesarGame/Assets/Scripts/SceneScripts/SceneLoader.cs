@@ -12,8 +12,15 @@ public class SceneLoader : MonoBehaviour
     {
         DestroyPersistor();
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentSceneIndex + 1);
+        StartCoroutine(FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, currentSceneIndex + 1));
     }
+
+    public void LoadCurrentLevel()
+    {
+        var currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        StartCoroutine(FindObjectOfType<SceneFader>().FadeAndLoadScene(SceneFader.FadeDirection.In, currentSceneIndex, 0.4f));
+    }
+
 
     public void LoadWinner()
     {

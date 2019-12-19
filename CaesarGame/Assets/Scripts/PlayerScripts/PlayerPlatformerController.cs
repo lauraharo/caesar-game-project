@@ -19,7 +19,7 @@ public class PlayerPlatformerController : PhysicsObject
     [SerializeField] float meleeRadius = 0.05f;
     [SerializeField] float timeBetweenAttacks = 10f;
 
-    bool canStandUp, isFacingRight;
+    bool canStandUp, isFacingRight, respawnCalled;
     float slideTime, attackTimer;
     int deathTime;
 
@@ -34,6 +34,7 @@ public class PlayerPlatformerController : PhysicsObject
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         isSliding = false;
+        respawnCalled = false;
         slideDisableCollider.enabled = true;
         isFacingRight = true;
         isDead = false;
@@ -41,6 +42,13 @@ public class PlayerPlatformerController : PhysicsObject
         attackTimer = 0;
         startPosition = transform.position;
         playerHealth = gameObject.GetComponent<PlayerHealth>();
+    }
+
+    protected override void ComputeSlide()
+    {
+        if (isSliding) {
+            slideTime = slideTime <= 0 ? 0 : slideTime - 1;
+        }
     }
 
     protected override void ComputeVelocity()
@@ -71,8 +79,6 @@ public class PlayerPlatformerController : PhysicsObject
     // All logic regarrding movement during a slide is here
     private void HandleSlidingControls() {
         if (canStandUp && slideTime <= 0) ToggleSlide();
-
-        slideTime = slideTime <= 0 ? 0 : slideTime - 1;
 
         if (Input.GetButtonDown("Jump") && grounded && canStandUp) {
             ToggleSlide();
@@ -177,11 +183,11 @@ public class PlayerPlatformerController : PhysicsObject
 
         deathTime--;
         if (deathTime <= 0) Respawn();
-        
-        
+   
     }
 
     private void Respawn() {
-        FindObjectOfType<GameSession>().ProcessPlayerDeath();
+        if (!respawnCalled) FindObjectOfType<GameSession>().DeleteLives(1);
+        respawnCalled = true;
     }
 }

@@ -118,7 +118,9 @@ MonoBehaviour:
   maxSpeed: 5
   jumpTakeOffSpeed: 12.3
   slideSpeed: 15
-  slideLength: 45
+  slideLength: 15
+  isSliding: 0
+  isDead: 0
   slideDisableCollider: {fileID: 5265110511323020140}
   whatIsGround:
     serializedVersion: 2
@@ -129,8 +131,6 @@ MonoBehaviour:
   initialDeathTime: 400
   meleeRadius: 1
   timeBetweenAttacks: 3.5
-  isSliding: 0
-  isDead: 0
 --- !u!114 &5265110511323020136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,12 +143,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 120a4a41ee60d0c4590a9091234fe0dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  invisibilityTimeFrame: 6
   startingHealth: 50
   currentHealth: 0
   healthSlider: {fileID: 0}
-  invisibilityTimeFrame: 6
-  flashColour: {r: 1, g: 1, b: 1, a: 0.2}
-  flashColourSecond: {r: 1, g: 1, b: 1, a: 1}
+  isDead: 0
 --- !u!50 &5265110511323020142
 Rigidbody2D:
   serializedVersion: 4
@@ -257,7 +256,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 273787127
-  m_SortingLayer: 3
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 7b0cfaea440fd0748a33dfac11a5823e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
