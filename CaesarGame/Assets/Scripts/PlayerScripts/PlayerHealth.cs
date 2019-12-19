@@ -68,9 +68,9 @@ public class PlayerHealth : MonoBehaviour
         healthSlider.value = currentHealth;
     }
 
-    public void TakeDamage(int amount)
+    public void TakeDamage(int amount, bool force = false)
     {
-        if (isDead || invisibilityTime != invisibilityTimeFrame) return;
+        if ((isDead || invisibilityTime != invisibilityTimeFrame) && !force) return;
 
         damaged = true;
         invisibilityTime -= 0.1f;

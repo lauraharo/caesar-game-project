@@ -39,13 +39,12 @@ public class GameSession : MonoBehaviour
     public void DeleteLives(int amount)
     {
         lives -= amount;
-        var currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-        SceneManager.LoadScene(currentSceneIndex);
-    }
-
-    public void ProcessPlayerDeath()
-     {
-        if (lives > 1) DeleteLives(1);
-        else sceneLoader.LoadGameOver();
+        if (lives < 1) {
+            sceneLoader.LoadGameOver();
+        } 
+        else {
+            var currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+            sceneLoader.LoadCurrentLevel();
+        }
     }
 }
