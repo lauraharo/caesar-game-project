@@ -46,8 +46,14 @@ public class PhysicsObject : MonoBehaviour
 
     }
 
+    protected virtual void ComputeSlide()
+    {
+
+    }
+
     void FixedUpdate()
     {
+        ComputeSlide();
 
         if (velocity.y > maxFallSpeed) velocity.y -= gravity;
         else velocity.y = maxFallSpeed;

@@ -43,6 +43,13 @@ public class PlayerPlatformerController : PhysicsObject
         playerHealth = gameObject.GetComponent<PlayerHealth>();
     }
 
+    protected override void ComputeSlide()
+    {
+        if (isSliding) {
+            slideTime = slideTime <= 0 ? 0 : slideTime - 1;
+        }
+    }
+
     protected override void ComputeVelocity()
     {
         if (move.x > 0.01f && !isFacingRight) {
@@ -71,8 +78,6 @@ public class PlayerPlatformerController : PhysicsObject
     // All logic regarrding movement during a slide is here
     private void HandleSlidingControls() {
         if (canStandUp && slideTime <= 0) ToggleSlide();
-
-        slideTime = slideTime <= 0 ? 0 : slideTime - 1;
 
         if (Input.GetButtonDown("Jump") && grounded && canStandUp) {
             ToggleSlide();
